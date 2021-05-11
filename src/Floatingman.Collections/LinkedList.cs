@@ -13,8 +13,7 @@ namespace Floatingman.Collections
     public abstract class LinkedList<T> : IEnumerable<T>
     {
 
-        public Option<Link> Head { get; set; }
-        public Option<Link> Tail { get; set; }
+        protected Option<Link> Head { get; set; }
 
         public IEnumerator<T> GetEnumerator()
         {
@@ -26,12 +25,12 @@ namespace Floatingman.Collections
             return GetEnumerator();
         }
 
-        public ulong Size { get; set; }
+        public ulong Size { get; protected set; }
 
         protected LinkedList()
         {
-            Head = Tail;
-            Tail = Option<Link>.None;
+            //Head = Tail;
+            //Tail = Option<Link>.None;
             Size = 0;
         }
 
@@ -61,7 +60,7 @@ namespace Floatingman.Collections
             public void Dispose() { }
         }
 
-        public record Link
+        protected record Link
         {
             public T Item { get; set; }
             public Option<Link> Next { get; set; }
