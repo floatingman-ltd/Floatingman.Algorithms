@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 
 using Floatingman.Common.Functional;
@@ -10,12 +9,12 @@ namespace Floatingman.Collections
 {
 
     // A basic data structure with no add or delete methods
-    public abstract class LinkedList<T> : IEnumerable<T>
+    public abstract class LinkedList<T> : IEnumerable<Option<T>>
     {
 
         protected Option<Link> Head { get; set; }
 
-        public IEnumerator<T> GetEnumerator()
+        public IEnumerator<Option<T>> GetEnumerator()
         {
             return new LinkedListEnumerator(this);
         }
@@ -25,32 +24,69 @@ namespace Floatingman.Collections
             return GetEnumerator();
         }
 
-        public ulong Size { get; protected set; }
+        public ulong Count { get; protected set; }
 
         protected LinkedList()
         {
-            //Head = Tail;
-            //Tail = Option<Link>.None;
-            Size = 0;
+            Head = Option<Link>.None;
+            Count = 0;
         }
 
-        private class LinkedListEnumerator : IEnumerator<T>
+        private class LinkedListEnumerator : IEnumerator<Option<T>>
         {
+
+            private ulong _index = 0ul;
             public LinkedListEnumerator(LinkedList<T> list)
             {
-                list.Head.IsSome(out _current);
+                _current = list.Head;
             }
 
             // IEnumerator<T> implementation
-            private Link _current;
-            public T Current { get { return _current.Item; } }
+            private Option<Link> _current;
+
+            public Option<T> Current
+            {
+                get
+                {
+                    if (_current.IsSome(out var v))
+                    {
+                        return Option<T>.Some(v.Item);
+                    }
+
+                    return Option<T>.None;
+                }
+            }
+
 
             // IEnumerator
             public void Reset() { }
 
+            // move first needs to move to the first element in the list first
             public bool MoveNext()
             {
-                return _current.Next.IsSome(out _current);
+                // poosibley sitting on the first element already
+                if (_index == 0ul)
+                {
+                    _index++;
+                    return _current.IsSome(out var _);
+                }
+                else
+                {
+
+                    return getAndSetNext();
+
+                }
+
+                bool getAndSetNext()
+                {
+                    if (_current.IsSome(out var v))
+                    {
+                        _current = v.Next;
+                        return true;
+                    }
+                    return false;
+
+                }
             }
 
             object IEnumerator.Current { get { return Current; } }

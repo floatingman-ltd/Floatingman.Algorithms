@@ -3,11 +3,20 @@ using Xunit;
 using FluentAssertions;
 using System.Linq;
 using FluentAssertions.Execution;
+using Floatingman.Common.Extensions;
+using Xunit.Abstractions;
 
 namespace Floatingman.Collections.Test
 {
     public class StackTests
     {
+        private readonly ITestOutputHelper output;
+
+        public StackTests (ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
         [Fact]
         public void NewStack_IsEmpty()
         {
@@ -35,7 +44,7 @@ namespace Floatingman.Collections.Test
             {
                 stack.Push(i);
             }
-            stack.Size.Should().Be(pushes);
+            stack.Count.Should().Be(pushes);
         }
 
 
@@ -49,7 +58,7 @@ namespace Floatingman.Collections.Test
 
 
         [Fact]
-        public void PopsReturnsInReverseOrder()
+        public void Stack_Is_LIFO()
         {
             var records = 10ul;
             var stack = new Stack<ulong>();
@@ -57,7 +66,11 @@ namespace Floatingman.Collections.Test
             {
                 stack.Push(i);
             }
-            stack.Size.Should().Be(10ul);
+            stack.Count.Should().Be(10ul);
+
+            //// secret peek at data structure 
+            //var a = stack.ToArray();
+            //a.AsJson(output.WriteLine);
 
             for (var i = records; i > 0ul; i--)
             {

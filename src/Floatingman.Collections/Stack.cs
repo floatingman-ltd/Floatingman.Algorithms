@@ -1,8 +1,9 @@
 using Floatingman.Common.Functional;
- namespace Floatingman.Collections { 
+namespace Floatingman.Collections
+{
     public class Stack<T> : LinkedList<T>
     {
-        public Stack():base()
+        public Stack() : base()
         {
             Head = Option<Link>.None;
         }
@@ -14,7 +15,7 @@ using Floatingman.Common.Functional;
             var link = new Link(item);
             link.Next = Head;
             Head = Option<LinkedList<T>.Link>.Some(link);
-            Size++;
+            Count++;
 
         }
 
@@ -23,7 +24,7 @@ using Floatingman.Common.Functional;
             // set the value to return
             if (Head.IsSome(out var head))
             {
-                Size--;
+                Count--;
                 var value = head.Item;
                 Head = head.Next;
                 return Option<T>.Some(value);
