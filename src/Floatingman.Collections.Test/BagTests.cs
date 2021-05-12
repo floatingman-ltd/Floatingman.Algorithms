@@ -25,7 +25,7 @@ namespace Floatingman.Collections.Test
         {
             var bag = new Bag<char>();
             var enumerator = bag.GetEnumerator();
-            enumerator.Should().BeAssignableTo<IEnumerator<Option<char>>>();
+            enumerator.Should().BeAssignableTo<IEnumerator<Option<LinkedList<char>.Link>>>();
         }
 
         [Fact]
@@ -40,9 +40,18 @@ namespace Floatingman.Collections.Test
 
             var a = bag
                 .Where(i => i.IsSome(out var _))
-                .Select(i => { i.IsSome(out var x); return x; })
+                .Select(i => { i.IsSome(out var x); return x.Item; })
                 .ToArray();
             a.Should().BeEquivalentTo(values);
+        }
+
+        [Fact]
+        public void CanDeleteAnItem()
+        {
+            var values = new[] { 'a', 'b', 'c', 'd', 'e' };
+            var bag = new Bag<char>();
+            bag.Delete(0);
+            bag.Count.Should().Be(4);
         }
 
     }

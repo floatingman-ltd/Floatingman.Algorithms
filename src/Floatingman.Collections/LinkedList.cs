@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 using Floatingman.Common.Functional;
@@ -9,19 +10,42 @@ namespace Floatingman.Collections
 {
 
     // A basic data structure with no add or delete methods
-    public abstract class LinkedList<T> : IEnumerable<Option<T>>
+    public abstract class LinkedList<T> : IEnumerable<Option<LinkedList<T>.Link>>
     {
 
         protected Option<Link> Head { get; set; }
 
-        public IEnumerator<Option<T>> GetEnumerator()
-        {
-            return new LinkedListEnumerator(this);
-        }
-
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public void Delete(ulong index)
+        {
+            if (index > Count) return;
+            var enumerator = GetEnumerator();
+            var count = 0ul;
+            var last = Head;
+
+            while (count <= index)
+            {
+                // last value
+                last.IsSome(out var lastV);
+                // next
+                enumerator.MoveNext();
+                enumerator.Current.IsSome(out var current);
+                //last.Next = current.Next;
+                // save the last record
+                //enumerator.Current.IsSome(out last);
+                //increment the counter
+               count++;
+            }
+            Count--;
+        }
+
+        public IEnumerator<Option<Link>> GetEnumerator()
+        {
+            return new LinkedListEnumerator(this);
         }
 
         public ulong Count { get; protected set; }
@@ -32,7 +56,7 @@ namespace Floatingman.Collections
             Count = 0;
         }
 
-        private class LinkedListEnumerator : IEnumerator<Option<T>>
+        private class LinkedListEnumerator : IEnumerator<Option<Link>>
         {
 
             private ulong _index = 0ul;
@@ -44,16 +68,17 @@ namespace Floatingman.Collections
             // IEnumerator<T> implementation
             private Option<Link> _current;
 
-            public Option<T> Current
+            public Option<Link> Current
             {
                 get
                 {
                     if (_current.IsSome(out var v))
                     {
-                        return Option<T>.Some(v.Item);
+                        return _current;
+                        //return Option<T>.Some(v.Item);
                     }
 
-                    return Option<T>.None;
+                    return Option<Link>.None;
                 }
             }
 
@@ -96,7 +121,7 @@ namespace Floatingman.Collections
             public void Dispose() { }
         }
 
-        protected record Link
+        public record Link
         {
             public T Item { get; set; }
             public Option<Link> Next { get; set; }

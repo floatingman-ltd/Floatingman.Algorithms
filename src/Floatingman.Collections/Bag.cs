@@ -1,4 +1,5 @@
 using Floatingman.Common.Functional;
+using System;
 
 namespace Floatingman.Collections
 {
@@ -11,6 +12,5 @@ namespace Floatingman.Collections
             Head = Option<LinkedList<T>.Link>.Some(link);
             Count++;
         }
-
     }
 }
