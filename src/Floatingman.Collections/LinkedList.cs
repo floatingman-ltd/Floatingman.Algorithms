@@ -22,10 +22,17 @@ namespace Floatingman.Collections
 
         public void Delete(ulong index)
         {
-            if (index > Count) return;
+            if (index >= Count) return;
             var enumerator = GetEnumerator();
             var count = 0ul;
             var last = Head;
+
+            // special case of removing head
+            if (index == 0ul)
+            {
+                Head.IsSome(out var next);
+                Head = next.Next;
+            }
 
             while (count <= index)
             {
@@ -36,9 +43,9 @@ namespace Floatingman.Collections
                 enumerator.Current.IsSome(out var current);
                 lastV.Next = current.Next;
                 // save the last record
-               last = enumerator.Current;
+                last = enumerator.Current;
                 //increment the counter
-               count++;
+                count++;
             }
             Count--;
         }

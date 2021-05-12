@@ -69,5 +69,29 @@ namespace Floatingman.Collections.Test
             }
         }
 
+
+        [Fact]
+        public void CanDeleteFirstItem()
+        {
+            var values = new[] { 'a', 'b', 'c', 'd', 'e' };
+            var eValues = new[] { 'a', 'b', 'c', 'd' };
+            var bag = new Bag<char>();
+            foreach (var value in values)
+            {
+                bag.Add(value);
+            }
+            bag.Delete(0);
+            using (new AssertionScope())
+            {
+                bag.Count.Should().Be(4);
+                var a = bag
+                    .Where(i => i.IsSome(out var _))
+                    .Select(i => { i.IsSome(out var x); return x.Item; })
+                    .ToArray();
+                a.Should().BeEquivalentTo(eValues);
+
+            }
+        }
+
     }
 }
