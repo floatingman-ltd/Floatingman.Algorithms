@@ -1,5 +1,6 @@
 ﻿using Floatingman.Common.Functional;
 using FluentAssertions;
+using FluentAssertions.Execution;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,9 +50,23 @@ namespace Floatingman.Collections.Test
         public void CanDeleteAnItem()
         {
             var values = new[] { 'a', 'b', 'c', 'd', 'e' };
+            var eValues = new[] { 'a', 'b', 'c', 'e' };
             var bag = new Bag<char>();
-            bag.Delete(0);
-            bag.Count.Should().Be(4);
+            foreach (var value in values)
+            {
+                bag.Add(value);
+            }
+            bag.Delete(1);
+            using (new AssertionScope())
+            {
+                bag.Count.Should().Be(4);
+                var a = bag
+                    .Where(i => i.IsSome(out var _))
+                    .Select(i => { i.IsSome(out var x); return x.Item; })
+                    .ToArray();
+                a.Should().BeEquivalentTo(eValues);
+
+            }
         }
 
     }

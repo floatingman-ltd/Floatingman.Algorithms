@@ -34,9 +34,9 @@ namespace Floatingman.Collections
                 // next
                 enumerator.MoveNext();
                 enumerator.Current.IsSome(out var current);
-                //last.Next = current.Next;
+                lastV.Next = current.Next;
                 // save the last record
-                //enumerator.Current.IsSome(out last);
+               last = enumerator.Current;
                 //increment the counter
                count++;
             }
