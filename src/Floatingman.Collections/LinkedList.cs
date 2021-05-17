@@ -8,20 +8,35 @@ using Floatingman.Common.Functional;
 
 namespace Floatingman.Collections
 {
-
     // A basic data structure with no add or delete methods
     public abstract class LinkedList<T> : IEnumerable<Option<LinkedList<T>.Link>>
     {
+        public LinkedList()
+        {
+            Head = Option<Link>.None;
+            Count = 0;
+        }
 
+        public ulong Count { get; protected set; }
         protected Option<Link> Head { get; set; }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        private Option<Link> this[ulong index]
         {
-            return GetEnumerator();
+            get
+            {
+                var enumerator = GetEnumerator();
+                // loop until the counter reaches the index
+                for (var i = 0ul; i <= index; i++)
+                {
+                    enumerator.MoveNext();
+                }
+                return enumerator.Current;
+            }
         }
 
         public void Delete(ulong index)
         {
+            // this is a fast fail
             if (index >= Count) return;
             var enumerator = GetEnumerator();
             var count = 0ul;
@@ -34,19 +49,23 @@ namespace Floatingman.Collections
                 Head = next.Next;
             }
 
-            while (count <= index)
+            // last value
+            last.IsSome(out var lastValue);
+            enumerator.Current.IsSome(out var current);
+
+            while (count < index)
             {
-                // last value
-                last.IsSome(out var lastV);
+                last.IsSome(out lastValue);
                 // next
                 enumerator.MoveNext();
-                enumerator.Current.IsSome(out var current);
-                lastV.Next = current.Next;
+                enumerator.Current.IsSome(out current);
                 // save the last record
                 last = enumerator.Current;
                 //increment the counter
                 count++;
             }
+            // we got here because we looped forward to the record
+            lastValue.Next = current.Next;
             Count--;
         }
 
@@ -55,25 +74,26 @@ namespace Floatingman.Collections
             return new LinkedListEnumerator(this);
         }
 
-        public ulong Count { get; protected set; }
-
-        protected LinkedList()
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            Head = Option<Link>.None;
-            Count = 0;
+            return GetEnumerator();
         }
 
         private class LinkedListEnumerator : IEnumerator<Option<Link>>
         {
-
-            private ulong _index = 0ul;
-            public LinkedListEnumerator(LinkedList<T> list)
-            {
-                _current = list.Head;
-            }
-
             // IEnumerator<T> implementation
             private Option<Link> _current;
+
+            private Option<Link> _head;
+
+            private bool _isPreread;
+
+            public LinkedListEnumerator(LinkedList<T> list)
+            {
+                _head = list.Head;
+                _current = list.Head;
+                _isPreread = true;
+            }
 
             public Option<Link> Current
             {
@@ -82,50 +102,42 @@ namespace Floatingman.Collections
                     if (_current.IsSome(out var v))
                     {
                         return _current;
-                        //return Option<T>.Some(v.Item);
                     }
 
                     return Option<Link>.None;
                 }
             }
 
+            object IEnumerator.Current { get { return Current; } }
 
-            // IEnumerator
-            public void Reset() { }
+            public void Dispose()
+            {
+            }
 
             // move first needs to move to the first element in the list first
             public bool MoveNext()
             {
-                // poosibley sitting on the first element already
-                if (_index == 0ul)
+                if (_isPreread)
                 {
-                    _index++;
-                    return _current.IsSome(out var _);
+                    _isPreread = false;
                 }
                 else
                 {
-
-                    return getAndSetNext();
-
+                    _current = _current.Bind((c) => c.Next);
                 }
-
-                bool getAndSetNext()
-                {
-                    if (_current.IsSome(out var v))
-                    {
-                        _current = v.Next;
-                        return true;
-                    }
-                    return false;
-
-                }
+                return _current.IsSome(out var _);
             }
 
-            object IEnumerator.Current { get { return Current; } }
+            public void Reset()
+            {
+                _current = _head;
+                _isPreread = true;
+            }
 
-            // implement IDisposable
-
-            public void Dispose() { }
+            private void IsSome(out object next)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public record Link
@@ -140,5 +152,4 @@ namespace Floatingman.Collections
             }
         }
     }
-
 }
