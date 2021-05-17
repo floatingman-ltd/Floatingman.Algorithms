@@ -44,7 +44,7 @@ namespace Floatingman.Collections.Test
         public void Can_Delete_An_Item()
         {
             var values = new[] { 'a', 'b', 'c', 'd', 'e' };
-            var eValues = new[] { 'a', 'b', 'c', 'e' };
+            var eValues = new[] { 'a', 'b', 'd', 'e' };
             var bag = new Bag<char>();
             foreach (var value in values)
             {
@@ -88,7 +88,7 @@ namespace Floatingman.Collections.Test
         public void Can_Delete_Last_Item()
         {
             var values = new[] { 'a', 'b', 'c', 'd', 'e' };
-            var eValues = new[] { 'a', 'c', 'd', 'e' };
+            var eValues = new[] { 'b', 'c', 'd', 'e' };
             var bag = new Bag<char>();
             foreach (var value in values)
             {

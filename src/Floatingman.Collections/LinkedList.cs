@@ -17,8 +17,8 @@ namespace Floatingman.Collections
             Count = 0;
         }
 
-        public ulong Count { get; protected set; }
-        protected Option<Link> Head { get; set; }
+        public ulong Count { get; internal set; }
+        protected internal Option<Link> Head { get; set; }
 
         private Option<Link> this[ulong index]
         {
@@ -32,41 +32,6 @@ namespace Floatingman.Collections
                 }
                 return enumerator.Current;
             }
-        }
-
-        public void Delete(ulong index)
-        {
-            // this is a fast fail
-            if (index >= Count) return;
-            var enumerator = GetEnumerator();
-            var count = 0ul;
-            var last = Head;
-
-            // special case of removing head
-            if (index == 0ul)
-            {
-                Head.IsSome(out var next);
-                Head = next.Next;
-            }
-
-            // last value
-            last.IsSome(out var lastValue);
-            enumerator.Current.IsSome(out var current);
-
-            while (count < index)
-            {
-                last.IsSome(out lastValue);
-                // next
-                enumerator.MoveNext();
-                enumerator.Current.IsSome(out current);
-                // save the last record
-                last = enumerator.Current;
-                //increment the counter
-                count++;
-            }
-            // we got here because we looped forward to the record
-            lastValue.Next = current.Next;
-            Count--;
         }
 
         public IEnumerator<Option<Link>> GetEnumerator()
