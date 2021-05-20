@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Floatingman.Collections.Usage", "src\Floatingman.Collections.Usage\Floatingman.Collections.Usage.csproj", "{E4E35E30-AA60-421F-9FD3-A0F3E55E0C78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{F4717830-8EE3-468D-9B29-37C384321408}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4717830-8EE3-468D-9B29-37C384321408}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4717830-8EE3-468D-9B29-37C384321408}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4E35E30-AA60-421F-9FD3-A0F3E55E0C78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4E35E30-AA60-421F-9FD3-A0F3E55E0C78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4E35E30-AA60-421F-9FD3-A0F3E55E0C78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4E35E30-AA60-421F-9FD3-A0F3E55E0C78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

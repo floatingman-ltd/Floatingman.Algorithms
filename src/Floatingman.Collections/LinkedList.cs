@@ -8,59 +8,104 @@ using Floatingman.Common.Functional;
 
 namespace Floatingman.Collections
 {
-
     // A basic data structure with no add or delete methods
-    public abstract class LinkedList<T> : IEnumerable<T>
+    public class LinkedList<T> : IEnumerable<Option<LinkedList<T>.Link>>
     {
+        protected internal LinkedList()
+        {
+            Head = Option<Link>.None;
+            Count = 0;
+        }
 
-        protected Option<Link> Head { get; set; }
+        public ulong Count { get; internal set; }
+        protected internal Option<Link> Head { get; set; }
 
-        public IEnumerator<T> GetEnumerator()
+        private Option<Link> this[ulong index]
+        {
+            get
+            {
+                var enumerator = GetEnumerator();
+                // loop until the counter reaches the index
+                for (var i = 0ul; i <= index; i++)
+                {
+                    enumerator.MoveNext();
+                }
+                return enumerator.Current;
+            }
+        }
+
+        public IEnumerator<Option<Link>> GetEnumerator()
         {
             return new LinkedListEnumerator(this);
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
-        public ulong Size { get; protected set; }
-
-        protected LinkedList()
+        private class LinkedListEnumerator : IEnumerator<Option<Link>>
         {
-            //Head = Tail;
-            //Tail = Option<Link>.None;
-            Size = 0;
-        }
+            // IEnumerator<T> implementation
+            private Option<Link> _current;
 
-        private class LinkedListEnumerator : IEnumerator<T>
-        {
+            private Option<Link> _head;
+
+            private bool _isPreread;
+
             public LinkedListEnumerator(LinkedList<T> list)
             {
-                list.Head.IsSome(out _current);
+                _head = list.Head;
+                _current = list.Head;
+                _isPreread = true;
             }
 
-            // IEnumerator<T> implementation
-            private Link _current;
-            public T Current { get { return _current.Item; } }
-
-            // IEnumerator
-            public void Reset() { }
-
-            public bool MoveNext()
+            public Option<Link> Current
             {
-                return _current.Next.IsSome(out _current);
+                get
+                {
+                    if (_current.IsSome(out var v))
+                    {
+                        return _current;
+                    }
+
+                    return Option<Link>.None;
+                }
             }
 
             object IEnumerator.Current { get { return Current; } }
 
-            // implement IDisposable
+            public void Dispose()
+            {
+            }
 
-            public void Dispose() { }
+            // move first needs to move to the first element in the list first
+            public bool MoveNext()
+            {
+                if (_isPreread)
+                {
+                    _isPreread = false;
+                }
+                else
+                {
+                    _current = _current.Bind((c) => c.Next);
+                }
+                return _current.IsSome(out var _);
+            }
+
+            public void Reset()
+            {
+                _current = _head;
+                _isPreread = true;
+            }
+
+            private void IsSome(out object next)
+            {
+                throw new NotImplementedException();
+            }
         }
 
-        protected record Link
+        public record Link
         {
             public T Item { get; set; }
             public Option<Link> Next { get; set; }
@@ -72,5 +117,4 @@ namespace Floatingman.Collections
             }
         }
     }
-
 }
