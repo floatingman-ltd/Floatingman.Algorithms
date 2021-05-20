@@ -11,7 +11,7 @@ using Xunit;
 namespace Floatingman.Collections.Test
 {
     // This is using a Bag for simplicity.
-    public class LinkedListTests
+    public class DeleteExtensionTests
     {
         [Fact]
         public void Can_Delete_All_Items()

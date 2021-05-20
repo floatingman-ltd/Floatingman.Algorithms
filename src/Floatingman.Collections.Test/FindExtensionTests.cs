@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Floatingman.Collections.Test
 {
-    public class SearchableLinkedListTests
+    public class FindExtensionTests
     {
         [Fact]
         public void Return_None_If_Not_Found()

@@ -9,9 +9,9 @@ using Floatingman.Common.Functional;
 namespace Floatingman.Collections
 {
     // A basic data structure with no add or delete methods
-    public abstract class LinkedList<T> : IEnumerable<Option<LinkedList<T>.Link>>
+    public class LinkedList<T> : IEnumerable<Option<LinkedList<T>.Link>>
     {
-        public LinkedList()
+        protected internal LinkedList()
         {
             Head = Option<Link>.None;
             Count = 0;
