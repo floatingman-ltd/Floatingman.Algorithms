@@ -1,5 +1,6 @@
 ﻿using Floatingman.Common.Functional;
 using FluentAssertions;
+using FluentAssertions.Execution;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,18 @@ namespace Floatingman.Collections.Test
         {
             var input = new[] { 'a', 'b', 'c', 'd', 'e' };
             var output = new[] { 'e', 'd', 'c', 'b', 'a' };
-            var stack = new Stack<char>(input);
-            stack.Reverse().Should().ContainInOrder(output);
+
+            using (new AssertionScope())
+            {
+                //var stack = new Stack<char>(input);
+                //var stackR = new Stack<char>(stack.Reverse()).ToArray().Should().ContainInOrder(output);
+
+                var queue = new Queue<char>(input);
+                queue.Reverse().ToArray().Should().ContainInOrder(output);
+
+                //var bag = new Bag<char>(input);
+                //bag.Reverse().ToArray().Should().ContainInOrder(output);
+            }
         }
 
         [Fact]
