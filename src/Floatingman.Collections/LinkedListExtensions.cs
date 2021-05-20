@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
 using Floatingman.Common.Functional;
 
 namespace Floatingman.Collections
@@ -11,7 +10,7 @@ namespace Floatingman.Collections
         {
             // this is a fast fail
             if (index >= list.Count) return;
-            var enumerator = list.GetEnumerator();
+            var enumerator = list.GetLinkEnumerator();
             var count = 0ul;
             var last = list.Head;
 
@@ -46,8 +45,11 @@ namespace Floatingman.Collections
                 where T : IEquatable<T>
         {
             var index = 0ul;
-            foreach (var v in list)
+            var enumerator = list.GetLinkEnumerator();
+            while (enumerator.MoveNext())
             {
+                var v = enumerator.Current;
+
                 v.IsSome(out var l);
                 if (l.Item.Equals(value))
                 {
@@ -64,9 +66,11 @@ namespace Floatingman.Collections
             var outlist = new LinkedList<T>();
             var head = Option<LinkedList<T>.Link>.None;
             var current = head;
-            foreach (var opt in list)
+            var enumerator = list.GetLinkEnumerator();
+            while (enumerator.MoveNext())
             {
-                opt.IsSome(out var link);
+                var v = enumerator.Current;
+                v.IsSome(out var link);
                 var item = new LinkedList<T>.Link(link.Item);
                 var next = Option<LinkedList<T>.Link>.Some(item);
 
@@ -75,14 +79,6 @@ namespace Floatingman.Collections
             }
             outlist.Head = current;
             return outlist;
-        }
-
-        public static T[] ToArray<T>(this LinkedList<T> list)
-        {
-            return list
-                .Where(v => v.IsSome(out var _))
-                .Select(v => { v.IsSome(out var x); return x.Item; })
-                .ToArray();
         }
     }
 }

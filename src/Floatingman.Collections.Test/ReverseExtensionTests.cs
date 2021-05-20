@@ -20,8 +20,9 @@ namespace Floatingman.Collections.Test
 
             using (new AssertionScope())
             {
+                // the challenge is that the stack (and the bag) both add items to the head
                 //var stack = new Stack<char>(input);
-                //var stackR = new Stack<char>(stack.Reverse()).ToArray().Should().ContainInOrder(output);
+                //stack.Reverse().ToArray().Should().ContainInOrder(output);
 
                 var queue = new Queue<char>(input);
                 queue.Reverse().ToArray().Should().ContainInOrder(output);
@@ -54,8 +55,8 @@ namespace Floatingman.Collections.Test
         {
             var input = new[] { 'a', 'b' };
             var output = new[] { 'b', 'a' };
-            var stack = new Stack<char>(input);
-            stack.Reverse().Should().ContainInOrder(output);
+            var queue = new Queue<char>(input);
+            queue.Reverse().Should().ContainInOrder(output);
         }
     }
 }

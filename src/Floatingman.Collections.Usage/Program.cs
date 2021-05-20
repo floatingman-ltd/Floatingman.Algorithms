@@ -17,7 +17,7 @@ namespace Floatingman.Collections.Usage
                 bag.Add(value);
                 array = ShowAndTell(bag);
             }
-            bag.Delete(2);
+            //bag.Delete(2);
             array = ShowAndTell(bag);
         }
 
@@ -44,7 +44,7 @@ namespace Floatingman.Collections.Usage
                 queue.Enqueue(value);
                 array = ShowAndTell(queue);
             }
-            queue.Delete(0);
+            //queue.Delete(0);
             array = ShowAndTell(queue);
         }
 
@@ -67,8 +67,8 @@ namespace Floatingman.Collections.Usage
         private static char[] ShowAndTell(LinkedList<char> collection)
         {
             char[] array = collection
-                .Where(v => v.IsSome(out var _))
-                .Select(v => { v.IsSome(out var x); return x.Item; })
+                //.Where(v => v.IsSome(out var _))
+                //.Select(v => { v.IsSome(out var x); return x.Item; })
                 .ToArray();
             array.AsJson();
             return array;
@@ -84,7 +84,7 @@ namespace Floatingman.Collections.Usage
                 stack.Push(value);
                 array = ShowAndTell(stack);
             }
-            stack.Delete(1);
+            //stack.Delete(1);
             array = ShowAndTell(stack);
         }
 
@@ -95,7 +95,7 @@ namespace Floatingman.Collections.Usage
             {
                 var list = new Queue<char>(values);
                 Console.Write("    "); ShowAndTell(list);
-                list.Delete(i);
+                //list.Delete(i);
                 Console.Write($"{i} - "); ShowAndTell(list);
             }
         }
