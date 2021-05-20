@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using Floatingman.Common.Functional;
 
 namespace Floatingman.Collections
@@ -58,18 +59,30 @@ namespace Floatingman.Collections
             return Option<ulong>.None;
         }
 
-        public static IEnumerable Reverse<T>(this LinkedList<T> list)
+        public static LinkedList<T> Reverse<T>(this LinkedList<T> list)
         {
             var outlist = new LinkedList<T>();
-            var next = outlist.Head;
-            foreach (var item in list)
+            var head = Option<LinkedList<T>.Link>.None;
+            var current = head;
+            foreach (var opt in list)
             {
-                item.
-                var link = item;
-                link.Bind()
-                next = item;
-                yield return outlist;
+                opt.IsSome(out var link);
+                var item = new LinkedList<T>.Link(link.Item);
+                var next = Option<LinkedList<T>.Link>.Some(item);
+
+                item.Next = current;
+                current = next;
             }
+            outlist.Head = current;
+            return outlist;
+        }
+
+        public static T[] ToArray<T>(this LinkedList<T> list)
+        {
+            return list
+                .Where(v => v.IsSome(out var _))
+                .Select(v => { v.IsSome(out var x); return x.Item; })
+                .ToArray();
         }
     }
 }

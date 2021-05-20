@@ -28,7 +28,10 @@ namespace Floatingman.Collections.Usage
             QueueTheRecords(values);
             StackTheRecords(values);
             BagTheRecords(values);
+
             VisualDelete(values);
+
+            Reverse(values);
         }
 
         private static void QueueTheRecords(char[] values)
@@ -43,6 +46,22 @@ namespace Floatingman.Collections.Usage
             }
             queue.Delete(0);
             array = ShowAndTell(queue);
+        }
+
+        private static void Reverse(char[] values)
+        {
+            Console.WriteLine("Reverse");
+            var queue = new Queue<char>(values);
+            new { queue = queue.ToArray() }.AsJson();
+            new { reverse = queue.Reverse().ToArray() }.AsJson();
+
+            var stack = new Stack<char>(values);
+            new { stack = stack.ToArray() }.AsJson();
+            new { reverse = stack.Reverse().ToArray() }.AsJson();
+
+            var bag = new Bag<char>(values);
+            new { bag = bag.ToArray() }.AsJson();
+            new { reverse = bag.Reverse().ToArray() }.AsJson();
         }
 
         private static char[] ShowAndTell(LinkedList<char> collection)
