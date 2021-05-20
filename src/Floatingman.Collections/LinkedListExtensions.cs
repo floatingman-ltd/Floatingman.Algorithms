@@ -6,6 +6,11 @@ namespace Floatingman.Collections
 {
     public static class LinkedListExtensions
     {
+        public static void Delete<T>(this LinkedList<T> list, T item)
+        {
+            throw new NotImplementedException();
+        }
+
         public static void Delete<T>(this LinkedList<T> list, ulong index)
         {
             // this is a fast fail
@@ -41,6 +46,11 @@ namespace Floatingman.Collections
             list.Count--;
         }
 
+        public static LinkedList<T> Filter<T>(this LinkedList<T> list, Func<T, bool> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
         public static Option<ulong> Find<T>(this LinkedList<T> list, T value)
                 where T : IEquatable<T>
         {
@@ -61,6 +71,11 @@ namespace Floatingman.Collections
             return Option<ulong>.None;
         }
 
+        public static LinkedList<U> Map<T, U>(this LinkedList<T> list, Func<T, U> f)
+        {
+            throw new NotImplementedException();
+        }
+
         public static LinkedList<T> Reverse<T>(this LinkedList<T> list)
         {
             var outlist = new LinkedList<T>();
@@ -79,6 +94,11 @@ namespace Floatingman.Collections
             }
             outlist.Head = current;
             return outlist;
+        }
+
+        public static LinkedList<T> Sort<T>(this LinkedList<T> list) where T : IComparable<T>
+        {
+            throw new NotImplementedException();
         }
     }
 }
