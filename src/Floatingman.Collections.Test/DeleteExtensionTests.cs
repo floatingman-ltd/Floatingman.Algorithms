@@ -33,8 +33,6 @@ namespace Floatingman.Collections.Test
             {
                 bag.Count.Should().Be(0ul);
                 var a = bag
-                    .Where(i => i.IsSome(out var _))
-                    .Select(i => { i.IsSome(out var x); return x.Item; })
                     .ToArray();
                 a.Should().BeEquivalentTo(eValues);
             }
@@ -55,8 +53,6 @@ namespace Floatingman.Collections.Test
             {
                 bag.Count.Should().Be(4);
                 var a = bag
-                    .Where(i => i.IsSome(out var _))
-                    .Select(i => { i.IsSome(out var x); return x.Item; })
                     .ToArray();
                 a.Should().BeEquivalentTo(eValues);
             }
@@ -77,8 +73,6 @@ namespace Floatingman.Collections.Test
             {
                 bag.Count.Should().Be(4ul);
                 var a = bag
-                    .Where(i => i.IsSome(out var _))
-                    .Select(i => { i.IsSome(out var x); return x.Item; })
                     .ToArray();
                 a.Should().BeEquivalentTo(eValues);
             }
@@ -99,8 +93,6 @@ namespace Floatingman.Collections.Test
             {
                 bag.Count.Should().Be(4ul);
                 var a = bag
-                    .Where(i => i.IsSome(out var _))
-                    .Select(i => { i.IsSome(out var x); return x.Item; })
                     .ToArray();
                 a.Should().BeEquivalentTo(eValues);
             }
@@ -121,8 +113,6 @@ namespace Floatingman.Collections.Test
             {
                 bag.Count.Should().Be(4ul);
                 var a = bag
-                    .Where(i => i.IsSome(out var _))
-                    .Select(i => { i.IsSome(out var x); return x.Item; })
                     .ToArray();
                 a.Should().BeEquivalentTo(eValues);
             }
@@ -143,8 +133,8 @@ namespace Floatingman.Collections.Test
             {
                 bag.Count.Should().Be(4ul);
                 var a = bag
-                    .Where(i => i.IsSome(out var _))
-                    .Select(i => { i.IsSome(out var x); return x.Item; })
+                    //.Where(i => i.IsSome(out var _))
+                    //.Select(i => { i.IsSome(out var x); return x.Item; })
                     .ToArray();
                 a.Should().BeEquivalentTo(eValues);
             }
@@ -154,17 +144,17 @@ namespace Floatingman.Collections.Test
         public void Can_Enumerate_Over_Values()
         {
             var values = new[] { 'a', 'b', 'c', 'd', 'e' };
-            var bag = new Bag<char>();
+            var queue = new Queue<char>();
             foreach (var value in values)
             {
-                bag.Add(value);
+                queue.Enqueue(value);
             }
 
-            var a = bag
-                .Where(i => i.IsSome(out var _))
-                .Select(i => { i.IsSome(out var x); return x.Item; })
+            var a = queue
+                //.Where(i => i.IsSome(out var _))
+                //.Select(i => { i.IsSome(out var x); return x.Item; })
                 .ToArray();
-            a.Should().BeEquivalentTo(values);
+            a.Should().ContainInOrder(values);
         }
 
         [Fact]
@@ -172,7 +162,7 @@ namespace Floatingman.Collections.Test
         {
             var bag = new Bag<char>();
             var enumerator = bag.GetEnumerator();
-            enumerator.Should().BeAssignableTo<IEnumerator<Option<LinkedList<char>.Link>>>();
+            enumerator.Should().BeAssignableTo<IEnumerator<char>>();
         }
     }
 }
