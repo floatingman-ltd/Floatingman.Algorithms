@@ -1,4 +1,6 @@
 bin/
 obj/
 .vs/
-TestResults/
+lcov.info
+data/
+algs4-data/

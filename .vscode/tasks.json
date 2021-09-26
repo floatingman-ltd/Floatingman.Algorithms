@@ -37,6 +37,60 @@
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
-        }
+        },
+        {
+            "label": "test",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "${workspaceFolder}/src/Floatingman.Collections.Test/Floatingman.Collections.Test.csproj",
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Collection w/Coverage",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "/p:CollectCoverage=true",
+                "/p:CoverletOutput=../CoverageResults/",
+                "/p:MergeWith=\"../CoverageResults/coverage.json\"",
+                "/p:CoverletOutputFormat=\"lcov,json\"",
+                // "/p:CoverletOutput=./lcov.info",
+                // "${workspaceFolder}/src/Floatingman.Collections.Test/Floatingman.Collections.Test.csproj",
+                "-m:1"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Optimization w/Coverage",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "/p:CollectCoverage=true",
+                "/p:CoverletOutput=../../CoverageResults/",
+                // "/p:MergeWith=../../CoverageResults/coverage.json",
+                "/p:CoverletOutputFormat=lcov",
+                "/p:CoverletOutput=./lcov.info",
+                "${workspaceFolder}/src/Floatingman.Optimizations.Test/Floatingman.Optimizations.Test.csproj",
+                // "-m:1"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
     ]
 }
