@@ -30,7 +30,7 @@ jobs:
       uses: gittools/actions/gitversion/execute@v0.9.7
     - name: Pack Nuget Package
       run: >
-        dotnet pack src/Floatingman.ALgorithms/Floatingman.ALgorithms.csproj --configuration Debug 
+        dotnet pack src/Floatingman.Algorithms/Floatingman.Algorithms.csproj --configuration Debug 
         /p:AssemblyVersion='${{ steps.gitversion.outputs.assemblySemVer }}' 
         /p:FileVersion='${{ steps.gitversion.outputs.assemblySemFileVer }}' 
         /p:InformationalVersion='${{ steps.gitversion.outputs.nuGetVersion }}' 

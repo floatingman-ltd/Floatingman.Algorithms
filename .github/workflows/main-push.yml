@@ -30,7 +30,7 @@ jobs:
         --store-password-in-clear-text
     - name: Pack Nuget Package
       run: >
-        dotnet pack src/Floatingman.Common/Floatingman.Common.csproj --configuration Debug 
+        dotnet pack src/Floatingman.Algorithms/Floatingman.Algorithms.csproj --configuration Debug 
         /p:AssemblyVersion='${{ steps.gitversion.outputs.assemblySemVer }}' 
         /p:FileVersion='${{ steps.gitversion.outputs.assemblySemFileVer }}' 
         /p:InformationalVersion='${{ steps.gitversion.outputs.nuGetVersion }}' 
