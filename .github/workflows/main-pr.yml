@@ -30,11 +30,15 @@ jobs:
       uses: gittools/actions/gitversion/execute@v0.9.7
     - name: Pack Nuget Package
       run: >
-        dotnet pack src/Floatingman.Common/Floatingman.Common.csproj --configuration Debug 
+        dotnet pack src/Floatingman.ALgorithms/Floatingman.ALgorithms.csproj --configuration Debug 
         /p:AssemblyVersion='${{ steps.gitversion.outputs.assemblySemVer }}' 
         /p:FileVersion='${{ steps.gitversion.outputs.assemblySemFileVer }}' 
         /p:InformationalVersion='${{ steps.gitversion.outputs.nuGetVersion }}' 
         /p:Version='${{ steps.gitversion.outputs.nuGetVersion }}'
+    - name: Delete the other packages
+      uses: actions/delete-package-versions@v1
+      with:
+        package-name: 'Floatingman.Algorithms'
     - name: Publish nuget to Github
       run: >
         dotnet nuget push **/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} 
