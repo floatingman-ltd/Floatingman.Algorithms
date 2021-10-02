@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Floatingman.Collections
+namespace Floatingman.Algorithms.Collections
 {
     public class Bag<T> : LinkedList<T>
     {

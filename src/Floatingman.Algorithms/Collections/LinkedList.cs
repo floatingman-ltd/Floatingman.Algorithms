@@ -6,7 +6,7 @@ using Floatingman.Common.Functional;
 
 // using static Floatingman.Common.Functional.Option;
 
-namespace Floatingman.Collections
+namespace Floatingman.Algorithms.Collections
 {
     // A basic data structure with no add or delete methods
     public class LinkedList<T> : IEnumerable<T>
