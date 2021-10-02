@@ -28,13 +28,5 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-<ItemGroup>
-<None Include="..\..\algs4-data\1Kints.txt" CopyToOutputDirectory="PreserveNewest" />
-<None Include="..\..\algs4-data\2Kints.txt" CopyToOutputDirectory="PreserveNewest" />
-<None Include="..\..\algs4-data\4Kints.txt" CopyToOutputDirectory="PreserveNewest" />
-<None Include="..\..\algs4-data\tinyUF.txt" CopyToOutputDirectory="PreserveNewest" />
-<None Include="..\..\algs4-data\mediumUF.txt" CopyToOutputDirectory="PreserveNewest" />
-<None Include="..\..\algs4-data\largeUF.txt" CopyToOutputDirectory="PreserveNewest" />
-</ItemGroup>
 
 </Project>
