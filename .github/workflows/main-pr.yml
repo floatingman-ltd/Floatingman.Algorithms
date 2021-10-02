@@ -35,10 +35,10 @@ jobs:
         /p:FileVersion='${{ steps.gitversion.outputs.assemblySemFileVer }}' 
         /p:InformationalVersion='${{ steps.gitversion.outputs.nuGetVersion }}' 
         /p:Version='${{ steps.gitversion.outputs.nuGetVersion }}'
-    - name: Delete the other packages
-      uses: actions/delete-package-versions@v1
-      with:
-        package-name: 'Floatingman.Algorithms'
+    # - name: Delete the other packages
+    #   uses: actions/delete-package-versions@v1
+    #   with:
+    #     package-name: 'Floatingman.Algorithms'
     - name: Publish nuget to Github
       run: >
         dotnet nuget push **/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} 
