@@ -1,4 +1,5 @@
 ﻿using Floatingman.Common.Functional;
+using Floatingman.Algorithms.Collections;
 using FluentAssertions;
 using System.Linq;
 using Xunit;
