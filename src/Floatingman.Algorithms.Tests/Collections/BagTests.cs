@@ -1,8 +1,8 @@
 ﻿using Floatingman.Common.Functional;
+using Floatingman.Algorithms.Collections;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;

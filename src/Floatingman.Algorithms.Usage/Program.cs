@@ -1,6 +1,6 @@
 ﻿using Floatingman.Common.Extensions;
+using Floatingman.Algorithms.Collections;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Floatingman.Collections.Usage
@@ -64,7 +64,7 @@ namespace Floatingman.Collections.Usage
             new { reverse = bag.Reverse().ToArray() }.AsJson();
         }
 
-        private static char[] ShowAndTell(LinkedList<char> collection)
+        private static char[] ShowAndTell(System.Collections.Generic.IEnumerable<char> collection)
         {
             char[] array = collection
                 //.Where(v => v.IsSome(out var _))
@@ -94,9 +94,11 @@ namespace Floatingman.Collections.Usage
             for (var i = 0ul; i < (ulong)values.Length; i++)
             {
                 var list = new Queue<char>(values);
-                Console.Write("    "); ShowAndTell(list);
+                Console.Write("    "); 
+                ShowAndTell(list);
                 //list.Delete(i);
-                Console.Write($"{i} - "); ShowAndTell(list);
+                Console.Write($"{i} - "); 
+                ShowAndTell(list);
             }
         }
     }

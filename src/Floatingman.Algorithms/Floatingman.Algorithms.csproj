@@ -2,10 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <PackageId>Floatingman.Algorithms</PackageId>
+    <Authors>Walt Speelman</Authors>
+    <Company>Floatingman</Company>
+    <CopyRight>(c) 2021 Floatingman IT Consulting</CopyRight>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/Floatingman-Ltd/Floatingman.Algorithms</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Floatingman.Common" Version="0.0.7" />
+    <PackageReference Include="Floatingman.Common" Version="*" />
   </ItemGroup>
 
 </Project>

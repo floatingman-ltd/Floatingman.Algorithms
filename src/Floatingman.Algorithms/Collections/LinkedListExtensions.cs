@@ -2,7 +2,7 @@
 using System.Collections;
 using Floatingman.Common.Functional;
 
-namespace Floatingman.Collections
+namespace Floatingman.Algorithms.Collections
 {
     public static class LinkedListExtensions
     {

@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Floatingman.Algorithms.Collections;
 
-namespace Floatingman.Collections.Test
+namespace Floatingman.Algorithms.Collections.Test
 {
     // This is using a Bag for simplicity.
     public class DeleteExtensionTests

@@ -6,7 +6,7 @@ using FluentAssertions.Execution;
 using Floatingman.Common.Extensions;
 using Xunit.Abstractions;
 
-namespace Floatingman.Collections.Test
+namespace Floatingman.Algorithms.Collections.Test
 {
     public class StackTests
     {
