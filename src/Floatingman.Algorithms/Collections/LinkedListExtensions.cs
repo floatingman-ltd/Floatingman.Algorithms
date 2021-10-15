@@ -6,9 +6,29 @@ namespace Floatingman.Algorithms.Collections
 {
     public static class LinkedListExtensions
     {
-        public static void Delete<T>(this LinkedList<T> list, T item)
+        public static void Delete<T>(this LinkedList<T> list, T item, bool all = false)
+        where T : IEquatable<T>
         {
-            throw new NotImplementedException();
+            var opt = list.Head;
+            opt.IsSome(out var lastItem);
+            if (opt.IsSome(out var listItem))
+            {
+                // there is no short way through the list 
+                while (listItem.Next.IsSome(out listItem))
+                {
+                    if (item.Equals(listItem.Item))
+                    {
+                        lastItem.Next = listItem.Next;
+                        listItem = null;
+                        list.Count--;
+                        if (!all)
+                        {
+                            return;
+                        }
+                    }
+                    lastItem = listItem;
+                }
+            }
         }
 
         public static void Delete<T>(this LinkedList<T> list, ulong index)
@@ -76,9 +96,10 @@ namespace Floatingman.Algorithms.Collections
             throw new NotImplementedException();
         }
 
-        public static LinkedList<T> Reverse<T>(this LinkedList<T> list)
+        public static LinkedList<T> Reverse<T, TCollection>(this LinkedList<T> list)
+        where TCollection : LinkedList<T>, new()
         {
-            var outlist = new LinkedList<T>();
+            var outlist = new TCollection();
             var head = Option<LinkedList<T>.Link>.None;
             var current = head;
             var enumerator = list.GetLinkEnumerator();
