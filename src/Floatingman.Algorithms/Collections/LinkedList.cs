@@ -8,8 +8,10 @@ using Floatingman.Common.Functional;
 
 namespace Floatingman.Algorithms.Collections
 {
+
+    // public interface
     // A basic data structure with no add or delete methods
-    public class LinkedList<T> : IEnumerable<T>
+    public abstract class LinkedList<T> : IEnumerable<T>
     {
         protected internal LinkedList()
         {
@@ -19,7 +21,7 @@ namespace Floatingman.Algorithms.Collections
 
         public ulong Count { get; internal set; }
 
-        protected internal Option<Link> Head { get; set; }
+        internal Option<Link> Head { get; set; }
 
         private T this[ulong index]
         {

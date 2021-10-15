@@ -12,7 +12,7 @@ using Floatingman.Algorithms.Collections;
 namespace Floatingman.Algorithms.Collections.Test
 {
     // This is using a Bag for simplicity.
-    public class DeleteExtensionTests
+    public class DeleteByIndexExtensionTests
     {
         [Fact]
         public void Can_Delete_All_Items()
