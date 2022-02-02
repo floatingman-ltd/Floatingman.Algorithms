@@ -8,6 +8,5 @@
         int Find(int p);
         void Union(int p, int q);
 
-
     }
 }
